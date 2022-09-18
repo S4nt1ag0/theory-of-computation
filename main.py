@@ -21,10 +21,10 @@ words = input().split()
 
 for word in words:
     ribbon = list((leftSymbol + word + whiteSymbol))
-    path = [(initialState, 1, ribbon)]
+    stack = [(initialState, 1, ribbon)]
 
     while True:
-        state, position, ribbonElements = path.pop()
+        state, position, ribbonElements = stack.pop()
 
         if (state, ribbonElements[position]) in futureStatesDictionary:
             for transaction in futureStatesDictionary[(state, ribbonElements[position])]:
@@ -40,16 +40,15 @@ for word in words:
                 elementsOfRibbon[position] = transaction[1]
 
                 if transaction[2] == 'E':
-                    path.append((transaction[0], (position - 1), elementsOfRibbon))
+                    stack.append((transaction[0], (position - 1), elementsOfRibbon))
                 elif transaction[2] == 'D':
-                    path.append((transaction[0], (position + 1), elementsOfRibbon))
+                    stack.append((transaction[0], (position + 1), elementsOfRibbon))
                 elif transaction[2] == 'I':
-                    path.append((transaction[0], position, elementsOfRibbon))
-
+                    stack.append((transaction[0], position, elementsOfRibbon))
         else:
             if state in finalStates:
                 print('S')
                 break
-            if len(path) == 0:
+            if len(stack) == 0:
                 print('N')
                 break
