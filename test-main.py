@@ -77,3 +77,4 @@ for i in range(100):
 for word in wordAnalytics.keys():
     wordAnalytics[word] = wordAnalytics[word] / 1000;
     print(len(word))
+    print(wordAnalytics[word])
